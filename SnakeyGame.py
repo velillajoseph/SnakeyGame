@@ -56,7 +56,6 @@ def Cuadricula(GRID, SIZE, win):
         x1 = x1 + SIZE
         y1 = y1 + SIZE
     
-#def collisions(snake )
 
 def spawnSnake(snake, size, win):
     for i in range(size):
@@ -69,7 +68,7 @@ def growSnake(snake, size):
     size += 1
     snake.append(snake[0].clone())
 
-def spawnApple(win):
+def spawnApple(Apple, win):
     x = randint(0, 32) * 20
     y = randint(0, 27) * 20
     try:
@@ -100,6 +99,25 @@ def moveSnake(snake, size, direction, win):
         snake[0].move(0, -20)
     snake[0].draw(win)
 
+def Collisions(snake, size, Apple, win):
+    collided = True
+    max_x1 =  snake[0].getP1().getX()
+    max_x2 = snake[0].getP2().getX()
+    max_y1 = snake[0].getP1().getY()
+    max_y2 = snake[0].getP2().getY()
+    center_x = snake[0].getCenter().getX()
+    center_y = snake[0].getCenter().getY()
+
+    if(max_x1 < 60 or max_x2 > 740 or max_y1 < 360 or max_y2 > 940):
+        return collided
+
+    elif(center_x == Apple.getCenter().getX() and center_y == Apple.getCenter().getY()):
+        spawnApple(Apple, win)
+        growSnake(snake, size)
+    for j in range(0, size):
+        if (center_x == snake[j].getCenter().getX() and center_y == snake[j].getCenter().getY()):
+            return collided
+
 
 
 def main():
@@ -115,6 +133,10 @@ def main():
     #By default is set to 1.
     direction = 1
 
+    #Define apple 
+    apple = 0
+
+    #Call functions to display window
     Title(win)
     Score(win)
     HTP(win)
@@ -122,7 +144,6 @@ def main():
     GameBoard(win)
     Cuadricula(680, 20, win)
     spawnSnake(snake, sSize, win)
-    spawnApple(win)
 
 
 
