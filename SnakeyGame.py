@@ -127,14 +127,17 @@ def main():
 
     #Defining snake and snake size
     sSize = 1
-    snake = [0] * sSize
+    aSnake = [0] * sSize
 
     #Defining snake direction: 1 = dowm, 2 = right, 3 = up, 4 = left. 
     #By default is set to 1.
     direction = 1
 
     #Define apple 
-    apple = 0
+    anApple = 0
+
+    #Validates game state false - playing / true - gameover
+    state = False
 
     #Call functions to display window
     Title(win)
@@ -143,12 +146,36 @@ def main():
     Walls(win)
     GameBoard(win)
     Cuadricula(680, 20, win)
-    spawnSnake(snake, sSize, win)
+    spawnSnake(aSnake, sSize, win)
+    spawnApple(anApple, win)
+
+    while(state):
+        key = win.checkKey()
+        time.sleep(0.20)
+        if(key == 'w'):
+            direction = 4
+            moveSnake(aSnake, sSize, direction, win)
+        elif(key == 'a'):
+            direction = 3
+            moveSnake(aSnake, sSize, direction, win)
+        elif(key =='s'):
+            direction = 1
+            moveSnake(aSnake, sSize, direction, win)
+        elif(key == 'd'):
+            direction = 2
+            moveSnake(aSnake, sSize, direction, win)
+        elif Collisions(aSnake, sSize, apple, win) == True:
+            state = True
+        else: 
+            moveSnake(aSnake, sSize, direction, win)
+        
 
 
 
-    win.getKey()
-    win.close()
+
+
+   # win.getKey()
+    #dwin.close()
 
 main()
 
