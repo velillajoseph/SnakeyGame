@@ -147,7 +147,7 @@ def Collisions():
     center_x = snake[0].getCenter().getX()
     center_y = snake[0].getCenter().getY()
 
-    if(max_x1 < 100 or max_x2 > 720 or max_y1 < 400 or max_y2 > 900):
+    if(max_x1 < 100 or max_x2 > 700 or max_y1 < 400 or max_y2 > 900):
         collided = True
         return collided
 
